@@ -120,9 +120,19 @@ if (isset($_POST['btnCancel'])) { ?>
 					<div class="box-body">
 					<div class="row">
                                 <div class="form-group">
-                                     <div class="col-md-6">
-                                            <label for="exampleInputEmail1">Year</label> <i class="text-danger asterik">*</i><?php echo isset($error['year']) ? $error['year'] : ''; ?>
-                                            <input type="text" class="form-control" name="year" value="<?php echo $res[0]['year']; ?>">
+                                    <div class='col-md-6'>
+                                    <label for="">Year</label> <i class="text-danger asterik">*</i>
+                                        <select id='year' name="year" class='form-control' required>
+                                            <option value="">Select Year</option>
+                                                <?php
+                                                $sql = "SELECT * FROM `year_count`";
+                                                $db->sql($sql);
+                                                $result = $db->getResult();
+                                                foreach ($result as $value) {
+                                                ?>
+													 <option value='<?= $value['year'] ?>' <?= $value['year']==$res[0]['year'] ? 'selected="selected"' : '';?>><?= $value['year'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                     <div class='col-md-6'>
                                         <label for="">Rasi</label> <i class="text-danger asterik">*</i>
