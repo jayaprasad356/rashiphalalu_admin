@@ -21,17 +21,17 @@ class Database
    // private $db_name = "u743445510_telugucalweb";    
 
     //Test
-    // private $db_host = "localhost";  // Change as required
-    // private $db_user = "u762811021_tc";  // Change as required
-    // private $db_pass = "Tcal@2022";  // Change as required
-    // private $db_name = "u762811021_tc";    // Change as required
+     private $db_host = "localhost";  // Change as required
+     private $db_user = "u762811021_rashiphalalu";  // Change as required
+     private $db_pass = "Tcal@2022";  // Change as required
+     private $db_name = "u762811021_rashiphalalu";    // Change as required
 
     
      //Test
-     private $db_host = "localhost";  // Change as required
-     private $db_user = "root";  // Change as required
-     private $db_pass = "";  // Change as required
-     private $db_name = "telugu";    // Change as required
+   //  private $db_host = "localhost";  // Change as required
+   //  private $db_user = "root";  // Change as required
+   //  private $db_pass = "";  // Change as required
+   //  private $db_name = "telugu";    // Change as required
 
     /*
      * Extra variables that are required by other function such as boolean con variable
