@@ -577,4 +577,60 @@ if (isset($_GET['table']) && $_GET['table'] == 'rahu_ketu_graham') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+if (isset($_GET['table']) && $_GET['table'] == 'nava_grahalu') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= " WHERE gs.id LIKE '%" . $search . "%' OR gs.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%'";
+    }
+
+    $countSql = "SELECT COUNT(n.id) AS total FROM nava_grahalu_tab n LEFT JOIN nava_grahalu_tab_variant nt ON n.id = nt.nava_grahalu_tab_id" . $where;
+    $db->sql($countSql);
+    $totalResult = $db->getResult();
+    
+    $total = 0;
+    if (!empty($totalResult)) {
+        $total = $totalResult[0]['total'];
+    }
+
+    $dataSql = "SELECT n.id AS id, n.*, (SELECT nt.title FROM nava_grahalu_tab_variant nt WHERE nt.nava_grahalu_tab_id = n.id ORDER BY nt.id LIMIT 1) AS title, (SELECT nt.description FROM nava_grahalu_tab_variant nt WHERE nt.nava_grahalu_tab_id = n.id ORDER BY nt.id LIMIT 1) AS description FROM nava_grahalu_tab n" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($dataSql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+
+    $rows = array();
+
+    foreach ($res as $row) {
+        $operate = '<a href="edit-nava_grahalu.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= '<a class="text text-danger" href="delete-nava_grahalu.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+
+        $tempRow = array();
+        $tempRow['id'] = $row['id'];
+        $tempRow['year'] = $row['year'];
+        $tempRow['nava_grahalu'] = $row['nava_grahalu'];
+        $tempRow['title'] = $row['title']; // Display the first title from the subquery
+        $tempRow['description'] = $row['description']; // Display the first description from the subquery
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 $db->disconnect();

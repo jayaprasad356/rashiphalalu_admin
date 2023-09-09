@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     exit(0);
 }
 	$category_data = array();
-	$sql = "select id,name from rahu_ketu_graham order by id asc";
+	$sql = "select id,name from nava_grahalu order by id asc";
 	$db->sql($sql);
 	$category_data = $db->getResult();
 	$sql = "select * from grahalu_submenu";
@@ -25,7 +25,7 @@ if (isset($_POST['btnEdit'])) {
 
 
 	$year = $db->escapeString(($_POST['year']));
-	$rasi = $db->escapeString(($_POST['rasi']));
+	$nava_grahalu = $db->escapeString(($_POST['nava_grahalu']));
 
 	$error = array();
 
@@ -33,8 +33,8 @@ if (isset($_POST['btnEdit'])) {
 
    
    
-   if (!empty($year) && !empty($rasi)) {
-				$sql_query = "UPDATE rahu_ketu_graham_tab SET year='$year',rasi='$rasi' WHERE id =$ID";
+   if (!empty($year) && !empty($nava_grahalu)) {
+				$sql_query = "UPDATE nava_grahalu_tab SET year='$year',nava_grahalu='$nava_grahalu' WHERE id =$ID";
 				$db->sql($sql_query);
 				$res = $db->getResult();
 				$update_result = $db->getResult();
@@ -48,10 +48,10 @@ if (isset($_POST['btnEdit'])) {
 			if ($update_result == 1)
 			{
 				for ($i = 0; $i < count($_POST['title']); $i++) {
-					$rahu_ketu_graham_tab_id = $db->escapeString(($_POST['rahu_ketu_graham_tab_variant_id'][$i]));
+					$nava_grahalu_tab_id = $db->escapeString(($_POST['nava_grahalu_tab_variant_id'][$i]));
 					$title = $db->escapeString(($_POST['title'][$i]));
 					$description = $db->escapeString(($_POST['description'][$i]));
-					$sql = "UPDATE rahu_ketu_graham_tab_variant SET title='$title',description='$description' WHERE id =$rahu_ketu_graham_tab_id";
+					$sql = "UPDATE nava_grahalu_tab_variant SET title='$title',description='$description' WHERE id =$nava_grahalu_tab_id";
 					$db->sql($sql);
 
 				}
@@ -62,7 +62,7 @@ if (isset($_POST['btnEdit'])) {
 						$title = $db->escapeString(($_POST['insert_title'][$i]));
 						$description = $db->escapeString(($_POST['insert_description'][$i]));
 						if (!empty($title) || !empty($description)) {
-							$sql = "INSERT INTO rahu_ketu_graham_tab_variant (rahu_ketu_graham_tab_id,title,description) VALUES('$ID','$title','$description')";
+							$sql = "INSERT INTO nava_grahalu_tab_variant (nava_grahalu_tab_id,title,description) VALUES('$ID','$title','$description')";
 							$db->sql($sql);
 
 						}
@@ -79,22 +79,22 @@ if (isset($_POST['btnEdit'])) {
 // create array variable to store previous data
 $data = array();
 
-$sql_query = "SELECT * FROM rahu_ketu_graham_tab WHERE id =" . $ID;
+$sql_query = "SELECT * FROM nava_grahalu_tab WHERE id =" . $ID;
 $db->sql($sql_query);
 $res = $db->getResult();
 
-$sql_query = "SELECT * FROM rahu_ketu_graham_tab_variant WHERE rahu_ketu_graham_tab_id =" . $ID;
+$sql_query = "SELECT * FROM nava_grahalu_tab_variant WHERE nava_grahalu_tab_id =" . $ID;
 $db->sql($sql_query);
 $resslot = $db->getResult();
 
 if (isset($_POST['btnCancel'])) { ?>
 	<script>
-		window.location.href = "rahu_ketu_graham_tab.php";
+		window.location.href = "nava_grahalu_tab.php";
 	</script>
 <?php } ?>
 <section class="content-header">
 	<h1>
-		Edit Rahu Ketu Graham<small><a href='rahu_ketu_graham.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Rahu Ketu Graham</a></small></h1>
+		Edit Nava Grahalu<small><a href='nava_grahalu.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Nava Grahalu</a></small></h1>
 	<small><?php echo isset($error['update_grahalutab']) ? $error['update_grahalutab'] : ''; ?></small>
 	<ol class="breadcrumb">
 		<li><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
@@ -135,16 +135,16 @@ if (isset($_POST['btnCancel'])) { ?>
                                         </select>
                                     </div>
                                     <div class='col-md-6'>
-                                        <label for="">Rasi</label> <i class="text-danger asterik">*</i>
-                                        <select id='rasi' name="rasi" class='form-control' required>
+                                        <label for="">Nava Grahalu</label> <i class="text-danger asterik">*</i>
+                                        <select id='nava_grahalu' name="nava_grahalu" class='form-control' required>
                                             <option value="">Select</option>
                                                 <?php
-                                                $sql = "SELECT * FROM `rasi_names`";
+                                                $sql = "SELECT * FROM `nava_grahalu_names`";
                                                 $db->sql($sql);
                                                 $result = $db->getResult();
                                                 foreach ($result as $value) {
                                                 ?>
-													 <option value='<?= $value['rasi'] ?>' <?= $value['rasi']==$res[0]['rasi'] ? 'selected="selected"' : '';?>><?= $value['rasi'] ?></option>
+													 <option value='<?= $value['nava_grahalu'] ?>' <?= $value['nava_grahalu']==$res[0]['nava_grahalu'] ? 'selected="selected"' : '';?>><?= $value['nava_grahalu'] ?></option>
                                             <?php } ?>
                                             </select>
                                     </div>
@@ -158,7 +158,7 @@ if (isset($_POST['btnCancel'])) { ?>
 								?>
 								<div id="packate_div">
 									<div class="row">
-									    <input type="hidden" class="form-control" name="rahu_ketu_graham_tab_variant_id[]" id="rahu_ketu_graham_tab_variant_id" value='<?= $row['id']; ?>' />
+									    <input type="hidden" class="form-control" name="nava_grahalu_tab_variant_id[]" id="nava_grahalu_tab_variant_id" value='<?= $row['id']; ?>' />
 									    <div class="col-md-4">
 											<div class="form-group packate_div">
 												<label for="exampleInputEmail1">title</label> <i class="text-danger asterik">*</i>

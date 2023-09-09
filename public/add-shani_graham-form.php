@@ -59,7 +59,7 @@ if (isset($_POST['btnAdd'])) {
         }
 ?>
 <section class="content-header">
-    <h1>Add Guru Graham<small><a href='shani_graham.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Guru Graham</a></small></h1>
+    <h1>Add Shani Graham<small><a href='shani_graham.php'> <i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Shani Graham</a></small></h1>
 
     <?php echo isset($error['add_grahalu_tab']) ? $error['add_grahalu_tab'] : ''; ?>
     <ol class="breadcrumb">
