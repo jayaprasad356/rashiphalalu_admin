@@ -204,7 +204,7 @@ $fn = new custom_functions;
                     </ul>
                 </li>
                 <li class="treeview">
-                <a href="panchangam.php">
+                <a href="rashulu.php">
                         <i class="fa fa-calendar"></i>
                         <span>Rashulu & Nakshathramulu aantey amiti</span>
                     </a>

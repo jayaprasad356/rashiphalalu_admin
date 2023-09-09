@@ -12,7 +12,7 @@ $db->connect();
 	}
 	$data = array();
 
-	$sql_query = "DELETE  FROM rahu_ketu_graham_tab WHERE id =" . $ID;
+	$sql_query = "DELETE  FROM rashulu_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
 	header("location:monthly.php");

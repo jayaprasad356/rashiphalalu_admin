@@ -633,4 +633,65 @@ if (isset($_GET['table']) && $_GET['table'] == 'nava_grahalu') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+if (isset($_GET['table']) && $_GET['table'] == 'rashulu_tab') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE id like '%" . $search . "%' OR rasi like '%" . $search . "%' OR year like '%" . $search . "%' OR title like '%" . $search . "%' OR description like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+       $countSql = "SELECT COUNT(r.id) AS total FROM rashulu_tab r LEFT JOIN rashulu_tab_variant rt ON r.id = rt.rashulu_tab_id" . $where;
+    $db->sql($countSql);
+    $totalResult = $db->getResult();
+    
+    $total = 0;
+    if (!empty($totalResult)) {
+        $total = $totalResult[0]['total'];
+    }
+
+    $dataSql = "SELECT r.id AS id, r.*, (SELECT rt.title1 FROM rashulu_tab_variant rt WHERE rt.rashulu_tab_id = r.id ORDER BY rt.id LIMIT 1) AS title1, (SELECT rt.description1 FROM rashulu_tab_variant rt WHERE rt.rashulu_tab_id = r.id ORDER BY rt.id LIMIT 1) AS description1 FROM rashulu_tab r" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($dataSql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+
+    $rows = array();
+
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-rashulu.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-rashulu.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['title'] = $row['title'];
+        $tempRow['description'] = $row['description'];
+        $tempRow['title1'] = $row['title1'];
+        $tempRow['description1'] = $row['description1'];
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 $db->disconnect();
