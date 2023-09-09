@@ -3,7 +3,7 @@
 <section class="content-header">
     <h1>Nava Grahalu /<small><a href="home.php"><i class="fa fa-home"></i> Home</a></small></h1>
     <ol class="breadcrumb">
-        <a class="btn btn-block btn-default" href="add-nava_grahalu.php"><i class="fa fa-plus-square"></i> Add Rahu Ketu Graham</a>
+        <a class="btn btn-block btn-default" href="add-nava_grahalu.php"><i class="fa fa-plus-square"></i> Add Nava Grahalu</a>
     </ol>
 </section>
 
