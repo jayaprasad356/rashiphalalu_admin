@@ -24,18 +24,6 @@ if (isset($_POST['btnAdd'])) {
         $karanam = $db->escapeString($_POST['karanam']);
         $rahu_kalam = $db->escapeString($_POST['rahu_kalam']);
         $yama_gandam = $db->escapeString($_POST['yama_gandam']);
-        $hc1 = $db->escapeString($_POST['hc1']);
-        $hc2 = $db->escapeString($_POST['hc2']);
-        $hc3 = $db->escapeString($_POST['hc3']);
-        $hc4 = $db->escapeString($_POST['hc4']);
-        $hc5 = $db->escapeString($_POST['hc5']);
-        $hc6 = $db->escapeString($_POST['hc6']);
-        $hc7 = $db->escapeString($_POST['hc7']);
-        $hc8 = $db->escapeString($_POST['hc8']);
-        $hc9 = $db->escapeString($_POST['hc9']);
-        $hc10 = $db->escapeString($_POST['hc10']);
-        $hc11 = $db->escapeString($_POST['hc11']);
-        $hc12 = $db->escapeString($_POST['hc12']);
 
         
         if (empty($date)) {
@@ -128,7 +116,7 @@ if (isset($_POST['btnAdd'])) {
                 $error['add_panchangam'] = " <span class='label label-danger'>Panchangam already in this date</span>";
             }
             else{
-                $sql_query = "INSERT INTO panchangam (date,sunrise,sunset,month_week,year_name,masam,ayanam_ruthuvu,thidhi,nakshatram,yogam,karanam,rahu_kalam,yama_gandam,hc1,hc2,hc3,hc4,hc5,hc6,hc7,hc8,hc9,hc10,hc11,hc12) VALUES ('$date','$sunrise','$sunset','$month_week','$year_name','$masam','$ayanam_ruthuvu','$thidhi','$nakshatram','$yogam','$karanam','$rahu_kalam','$yama_gandam','$hc1','$hc2','$hc3','$hc4','$hc5','$hc6','$hc7','$hc8','$hc9','$hc10','$hc11','$hc12')";
+                $sql_query = "INSERT INTO panchangam (date,sunrise,sunset,month_week,year_name,masam,ayanam_ruthuvu,thidhi,nakshatram,yogam,karanam,rahu_kalam,yama_gandam) VALUES ('$date','$sunrise','$sunset','$month_week','$year_name','$masam','$ayanam_ruthuvu','$thidhi','$nakshatram','$yogam','$karanam','$rahu_kalam','$yama_gandam')";
                 $db->sql($sql_query);
                 $result = $db->getResult();
                 if (!empty($result)) {
@@ -273,95 +261,7 @@ if (isset($_POST['btnAdd'])) {
                                  </div>
                             </div>
                             <br>
-                            <h3 class="text-center" style="font-weight:bold;color:Blue;">Hora Chakram</h3>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo1</label><?php echo isset($error['hc1']) ? $error['hc1'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc1">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo2</label><?php echo isset($error['hc2']) ? $error['hc2'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc2" >
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo3</label><?php echo isset($error['hc3']) ? $error['hc3'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc3" >
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo4</label><?php echo isset($error['hc4']) ? $error['hc4'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc4">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo5</label><?php echo isset($error['hc5']) ? $error['hc5'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc5">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo6</label><?php echo isset($error['hc6']) ? $error['hc6'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc6">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo7</label><?php echo isset($error['hc7']) ? $error['hc7'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc7">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo8</label><?php echo isset($error['hc8']) ? $error['hc8'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc8">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo9</label> <?php echo isset($error['hc9']) ? $error['hc9'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc9">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo10</label><?php echo isset($error['hc10']) ? $error['hc10'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc10">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo11</label><?php echo isset($error['hc11']) ? $error['hc11'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc11">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo12</label><?php echo isset($error['hc12']) ? $error['hc12'] : ''; ?>
-                                            <input type="text" class="form-control" name="hc12">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <!-- <div id="packate_div"  >
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group packate_div">
-                                            <label for="exampleInputEmail1">Title</label> <i class="text-danger asterik">*</i>
-                                            <input type="text" class="form-control" name="title[]" required />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group packate_div">
-                                            <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i>
-                                            <textarea type="text" rows="2" class="form-control" name="description[]" required></textarea>
-                                        </div>
-                                    </div>
-                                
-                                    <div class="col-md-1">
-                                        <label>Tab</label>
-                                        <a class="add_packate_variation" title="Add variation of panchangam" style="cursor: pointer;color:white;"><button class="btn btn-warning">Add more</button></a>
-                                    </div>
-                                    <div id="variations">
-                                    </div>
-                                </div>
-                            </div> -->
-                    </div>
+                         
                    <!-- /.box-body -->
 
                     <div class="box-footer">

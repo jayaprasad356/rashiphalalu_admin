@@ -29,19 +29,6 @@ if (isset($_POST['btnEdit'])) {
 	$karanam = $db->escapeString($_POST['karanam']);
 	$rahu_kalam = $db->escapeString($_POST['rahu_kalam']);
 	$yama_gandam = $db->escapeString($_POST['yama_gandam']);
-	$hc1 = $db->escapeString($_POST['hc1']);
-	$hc2 = $db->escapeString($_POST['hc2']);
-	$hc3 = $db->escapeString($_POST['hc3']);
-	$hc4 = $db->escapeString($_POST['hc4']);
-	$hc5 = $db->escapeString($_POST['hc5']);
-	$hc6 = $db->escapeString($_POST['hc6']);
-	$hc7 = $db->escapeString($_POST['hc7']);
-	$hc8 = $db->escapeString($_POST['hc8']);
-	$hc9 = $db->escapeString($_POST['hc9']);
-	$hc10 = $db->escapeString($_POST['hc10']);
-	$hc11 = $db->escapeString($_POST['hc11']);
-	$hc12 = $db->escapeString($_POST['hc12']);
-
 
 	if (empty($date)) {
 		$error['date'] = " <span class='label label-danger'>Required!</span>";
@@ -70,7 +57,7 @@ if (isset($_POST['btnEdit'])) {
    if (!empty($date) && !empty($sunrise) && !empty($sunset) && !empty($month_week) && !empty($year_name) && !empty($masam) && !empty($ayanam_ruthuvu) )
     {        
 		    
-			$sql_query = "UPDATE panchangam SET date = '$date',sunrise = '$sunrise',sunset = '$sunset',month_week = '$month_week',year_name = '$year_name',masam = '$masam',ayanam_ruthuvu = '$ayanam_ruthuvu',thidhi='$thidhi',nakshatram='$nakshatram',yogam='$yogam',karanam='$karanam',rahu_kalam='$rahu_kalam',yama_gandam='$yama_gandam',hc1 = '$hc1',hc2 = '$hc2',hc3 = '$hc3',hc4 = '$hc4',hc5 = '$hc5',hc6 = '$hc6',hc7 = '$hc7',hc8 = '$hc8',hc9 = '$hc9',hc10 = '$hc10',hc11 = '$hc11',hc12 = '$hc12' WHERE id = $ID";
+			$sql_query = "UPDATE panchangam SET date = '$date',sunrise = '$sunrise',sunset = '$sunset',month_week = '$month_week',year_name = '$year_name',masam = '$masam',ayanam_ruthuvu = '$ayanam_ruthuvu',thidhi='$thidhi',nakshatram='$nakshatram',yogam='$yogam',karanam='$karanam',rahu_kalam='$rahu_kalam',yama_gandam='$yama_gandam' WHERE id = $ID";
 			 $db->sql($sql_query);
 			 $res = $db->getResult();
              $update_result = $db->getResult();
@@ -239,71 +226,7 @@ if (isset($_POST['btnCancel'])) { ?>
                                  </div>
                             </div>
                             <br>
-							<h3 class="text-center" style="font-weight:bold;color:Blue;">Hora Chakram</h3>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo1</label>
-                                            <input type="text" class="form-control" name="hc1" value="<?php echo $res[0]['hc1']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo2</label>
-                                            <input type="text" class="form-control" name="hc2" value="<?php echo $res[0]['hc2']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo3</label>
-                                            <input type="text" class="form-control" name="hc3" value="<?php echo $res[0]['hc3']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo4</label>
-                                            <input type="text" class="form-control" name="hc4" value="<?php echo $res[0]['hc4']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo5</label>
-                                            <input type="text" class="form-control" name="hc5" value="<?php echo $res[0]['hc5']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo6</label>
-                                            <input type="text" class="form-control" name="hc6" value="<?php echo $res[0]['hc6']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo7</label>
-                                            <input type="text" class="form-control" name="hc7" value="<?php echo $res[0]['hc7']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo8</label>
-                                            <input type="text" class="form-control" name="hc8" value="<?php echo $res[0]['hc8']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo9</label> 
-                                            <input type="text" class="form-control" name="hc9" value="<?php echo $res[0]['hc9']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo10</label>
-                                            <input type="text" class="form-control" name="hc10" value="<?php echo $res[0]['hc10']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo11</label>
-                                            <input type="text" class="form-control" name="hc11" value="<?php echo $res[0]['hc11']; ?>">
-                                    </div>
-                                    <div class="col-md-3">
-                                            <label for="exampleInputEmail1">Horo12</label>
-                                            <input type="text" class="form-control" name="hc12" value="<?php echo $res[0]['hc12']; ?>">
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
+							
 						 <!-- <div id="variations">
 							<?php
 							$i=0;
