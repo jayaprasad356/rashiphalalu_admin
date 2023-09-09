@@ -420,40 +420,43 @@ if (isset($_GET['table']) && $_GET['table'] == 'guru_graham') {
     if (isset($_GET['order']))
         $order = $db->escapeString($_GET['order']);
 
-    if (isset($_GET['search']) && !empty($_GET['search'])) {
-        $search = $db->escapeString($_GET['search']);
-        $where .= " WHERE gs.id LIKE '%" . $search . "%' OR gs.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%'";
-    }
-
-    $sql = "SELECT COUNT(g.id) AS total FROM guru_graham_tab g LEFT JOIN guru_graham_tab_variant gt ON g.id = gt.guru_graham_tab_id";
-    $db->sql($sql);
-    $res = $db->getResult();
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $db->escapeString($_GET['search']);
+            $where .= " WHERE gs.id LIKE '%" . $search . "%' OR gs.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%'";
+        }
     
-    foreach ($res as $row)
-        $total = $row['total'];
-
-    $sql = "SELECT g.id AS id, g.*, gt.title, gt.description AS guru_graham_tab_variant_title FROM guru_graham_tab g LEFT JOIN guru_graham_tab_variant gt ON g.id = gt.guru_graham_tab_id " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
-    $db->sql($sql);
-    $res = $db->getResult();
-
-    $bulkData = array();
-    $bulkData['total'] = $total;
-
-    $rows = array();
-    $tempRow = array();
-
-    foreach ($res as $row) {
-        $operate = '<a href="edit-guru_graham.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
-        $operate .= '<a class="text text-danger" href="delete-guru_graham.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
-
-        $tempRow['id'] = $row['id'];
-        $tempRow['year'] = $row['year'];
-        $tempRow['rasi'] = $row['rasi'];
-        $tempRow['title'] = $row['title'];
-        $tempRow['description'] = $row['guru_graham_tab_variant_title'];
-        $tempRow['operate'] = $operate;
-        $rows[] = $tempRow;
-    }
+        $countSql = "SELECT COUNT(g.id) AS total FROM guru_graham_tab g LEFT JOIN guru_graham_tab_variant gt ON g.id = gt.guru_graham_tab_id" . $where;
+        $db->sql($countSql);
+        $totalResult = $db->getResult();
+        
+        $total = 0;
+        if (!empty($totalResult)) {
+            $total = $totalResult[0]['total'];
+        }
+    
+        $dataSql = "SELECT g.id AS id, g.*, (SELECT gt.title FROM guru_graham_tab_variant gt WHERE gt.guru_graham_tab_id = g.id ORDER BY gt.id LIMIT 1) AS title, (SELECT gt.description FROM guru_graham_tab_variant gt WHERE gt.guru_graham_tab_id = g.id ORDER BY gt.id LIMIT 1) AS description FROM guru_graham_tab g" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+        $db->sql($dataSql);
+        $res = $db->getResult();
+    
+        $bulkData = array();
+        $bulkData['total'] = $total;
+    
+        $rows = array();
+    
+        foreach ($res as $row) {
+            $operate = '<a href="edit-guru_graham.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+            $operate .= '<a class="text text-danger" href="delete-guru_graham.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+    
+            $tempRow = array();
+            $tempRow['id'] = $row['id'];
+            $tempRow['year'] = $row['year'];
+            $tempRow['rasi'] = $row['rasi'];
+            $tempRow['title'] = $row['title']; // Display the first title from the subquery
+            $tempRow['description'] = $row['description']; // Display the first description from the subquery
+            $tempRow['operate'] = $operate;
+            $rows[] = $tempRow;
+        }
+    
 
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
@@ -481,32 +484,35 @@ if (isset($_GET['table']) && $_GET['table'] == 'shani_graham') {
         $where .= " WHERE gs.id LIKE '%" . $search . "%' OR gs.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%'";
     }
 
-    $sql = "SELECT COUNT(s.id) AS total FROM shani_graham_tab s LEFT JOIN shani_graham_tab_variant st ON s.id = st.shani_graham_tab_id";
-    $db->sql($sql);
-    $res = $db->getResult();
+  
+    $countSql = "SELECT COUNT(s.id) AS total FROM shani_graham_tab s LEFT JOIN shani_graham_tab_variant st ON s.id = st.shani_graham_tab_id" . $where;
+    $db->sql($countSql);
+    $totalResult = $db->getResult();
     
-    foreach ($res as $row)
-        $total = $row['total'];
+    $total = 0;
+    if (!empty($totalResult)) {
+        $total = $totalResult[0]['total'];
+    }
 
-    $sql = "SELECT s.id AS id, s.*, st.title, st.description AS shani_graham_tab_variant_title FROM shani_graham_tab s LEFT JOIN shani_graham_tab_variant st ON s.id = st.shani_graham_tab_id " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
-    $db->sql($sql);
+    $dataSql = "SELECT s.id AS id, s.*, (SELECT st.title FROM shani_graham_tab_variant st WHERE st.shani_graham_tab_id = s.id ORDER BY st.id LIMIT 1) AS title, (SELECT st.description FROM shani_graham_tab_variant st WHERE st.shani_graham_tab_id = s.id ORDER BY st.id LIMIT 1) AS description FROM shani_graham_tab s" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($dataSql);
     $res = $db->getResult();
 
     $bulkData = array();
     $bulkData['total'] = $total;
 
     $rows = array();
-    $tempRow = array();
 
     foreach ($res as $row) {
         $operate = '<a href="edit-shani_graham.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $operate .= '<a class="text text-danger" href="delete-shani_graham.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
 
+        $tempRow = array();
         $tempRow['id'] = $row['id'];
         $tempRow['year'] = $row['year'];
         $tempRow['rasi'] = $row['rasi'];
-        $tempRow['title'] = $row['title'];
-        $tempRow['description'] = $row['shani_graham_tab_variant_title'];
+        $tempRow['title'] = $row['title']; // Display the first title from the subquery
+        $tempRow['description'] = $row['description']; // Display the first description from the subquery
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
@@ -537,36 +543,37 @@ if (isset($_GET['table']) && $_GET['table'] == 'rahu_ketu_graham') {
         $where .= " WHERE gs.id LIKE '%" . $search . "%' OR gs.name LIKE '%" . $search . "%' OR g.name LIKE '%" . $search . "%'";
     }
 
-    $sql = "SELECT COUNT(r.id) AS total FROM rahu_ketu_graham_tab r LEFT JOIN rahu_ketu_graham_tab_variant rt ON r.id = rt.rahu_ketu_graham_tab_id";
-    $db->sql($sql);
-    $res = $db->getResult();
+    $countSql = "SELECT COUNT(r.id) AS total FROM rahu_ketu_graham_tab r LEFT JOIN rahu_ketu_graham_tab_variant rt ON r.id = rt.rahu_ketu_graham_tab_id" . $where;
+    $db->sql($countSql);
+    $totalResult = $db->getResult();
     
-    foreach ($res as $row)
-        $total = $row['total'];
+    $total = 0;
+    if (!empty($totalResult)) {
+        $total = $totalResult[0]['total'];
+    }
 
-    $sql = "SELECT r.id AS id, r.*, rt.title, rt.description AS rahu_ketu_graham_tab_variant_title FROM rahu_ketu_graham_tab r LEFT JOIN rahu_ketu_graham_tab_variant rt ON r.id = rt.rahu_ketu_graham_tab_id " . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
-    $db->sql($sql);
+    $dataSql = "SELECT r.id AS id, r.*, (SELECT rt.title FROM rahu_ketu_graham_tab_variant rt WHERE rt.rahu_ketu_graham_tab_id = r.id ORDER BY rt.id LIMIT 1) AS title, (SELECT rt.description FROM rahu_ketu_graham_tab_variant rt WHERE rt.rahu_ketu_graham_tab_id = r.id ORDER BY rt.id LIMIT 1) AS description FROM rahu_ketu_graham_tab r" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($dataSql);
     $res = $db->getResult();
 
     $bulkData = array();
     $bulkData['total'] = $total;
 
     $rows = array();
-    $tempRow = array();
 
     foreach ($res as $row) {
         $operate = '<a href="edit-rahu_ketu_graham.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
         $operate .= '<a class="text text-danger" href="delete-rahu_ketu_graham.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
 
+        $tempRow = array();
         $tempRow['id'] = $row['id'];
         $tempRow['year'] = $row['year'];
         $tempRow['rasi'] = $row['rasi'];
-        $tempRow['title'] = $row['title'];
-        $tempRow['description'] = $row['rahu_ketu_graham_tab_variant_title'];
+        $tempRow['title'] = $row['title']; // Display the first title from the subquery
+        $tempRow['description'] = $row['description']; // Display the first description from the subquery
         $tempRow['operate'] = $operate;
         $rows[] = $tempRow;
     }
-
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
