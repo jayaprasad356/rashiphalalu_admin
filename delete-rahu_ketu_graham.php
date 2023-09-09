@@ -14,6 +14,8 @@ $db->connect();
 
 	$sql_query = "DELETE  FROM rahu_ketu_graham_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
+	$sql_query = "DELETE  FROM rahu_ketu_graham_tab_variant WHERE rahu_ketu_graham_tab_id =" . $ID;
+	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:monthly.php");
+	header("location:rahu_ketu_graham.php");
 ?>

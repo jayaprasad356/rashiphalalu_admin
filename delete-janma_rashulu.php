@@ -14,6 +14,8 @@ $db->connect();
 
 	$sql_query = "DELETE  FROM janma_rashulu_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
+	$sql_query = "DELETE  FROM janma_rashulu_tab_variant WHERE janma_rashulu_tab_id =" . $ID;
+	$db->sql($sql_query);
 	$res = $db->getResult();
 	header("location:janma_rashulu.php");
 ?>

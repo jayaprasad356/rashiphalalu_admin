@@ -14,6 +14,8 @@ $db->connect();
 
 	$sql_query = "DELETE  FROM nava_graham_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
+	$sql_query = "DELETE  FROM nava_graham_tab_variant WHERE nava_graham_tab_id =" . $ID;
+	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:monthly.php");
+	header("location:nava_graham.php");
 ?>
