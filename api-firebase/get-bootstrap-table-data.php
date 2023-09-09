@@ -694,4 +694,66 @@ if (isset($_GET['table']) && $_GET['table'] == 'rashulu_tab') {
     $bulkData['rows'] = $rows;
     print_r(json_encode($bulkData));
 }
+if (isset($_GET['table']) && $_GET['table'] == 'janma_rashulu') {
+
+    $offset = 0;
+    $limit = 10;
+    $where = '';
+    $sort = 'id';
+    $order = 'DESC';
+    if (isset($_GET['offset']))
+        $offset = $db->escapeString($_GET['offset']);
+    if (isset($_GET['limit']))
+        $limit = $db->escapeString($_GET['limit']);
+    if (isset($_GET['sort']))
+        $sort = $db->escapeString($_GET['sort']);
+    if (isset($_GET['order']))
+        $order = $db->escapeString($_GET['order']);
+
+    if (isset($_GET['search']) && !empty($_GET['search'])) {
+        $search = $db->escapeString($_GET['search']);
+        $where .= "WHERE id like '%" . $search . "%' OR rasi like '%" . $search . "%' OR year like '%" . $search . "%' OR title like '%" . $search . "%' OR description like '%" . $search . "%'";
+    }
+    if (isset($_GET['sort'])){
+        $sort = $db->escapeString($_GET['sort']);
+    }
+    if (isset($_GET['order'])){
+        $order = $db->escapeString($_GET['order']);
+    }
+       $countSql = "SELECT COUNT(j.id) AS total FROM janma_rashulu_tab j LEFT JOIN janma_rashulu_tab_variant jt ON j.id = jt.janma_rashulu_tab_id" . $where;
+    $db->sql($countSql);
+    $totalResult = $db->getResult();
+    
+    $total = 0;
+    if (!empty($totalResult)) {
+        $total = $totalResult[0]['total'];
+    }
+
+    $dataSql = "SELECT j.id AS id, j.*, (SELECT jt.title_description FROM janma_rashulu_tab_variant jt WHERE jt.janma_rashulu_tab_id = j.id ORDER BY jt.id LIMIT 1) AS title_description, (SELECT jt.title_description1 FROM janma_rashulu_tab_variant jt WHERE jt.janma_rashulu_tab_id = j.id ORDER BY jt.id LIMIT 1) AS title_description1 FROM janma_rashulu_tab j" . $where . " ORDER BY " . $sort . " " . $order . " LIMIT " . $offset . ", " . $limit;
+    $db->sql($dataSql);
+    $res = $db->getResult();
+
+    $bulkData = array();
+    $bulkData['total'] = $total;
+
+    $rows = array();
+
+
+    foreach ($res as $row) {
+
+        
+        $operate = ' <a href="edit-janma_rashulu.php?id=' . $row['id'] . '"><i class="fa fa-edit"></i>Edit</a>';
+        $operate .= ' <a class="text text-danger" href="delete-janma_rashulu.php?id=' . $row['id'] . '"><i class="fa fa-trash"></i>Delete</a>';
+        $tempRow['id'] = $row['id'];
+        $tempRow['rasi'] = $row['rasi'];
+        $tempRow['title'] = $row['title'];
+        $tempRow['description'] = $row['description'];
+        $tempRow['title_description'] = $row['title_description'];
+        $tempRow['title_description1'] = $row['title_description1'];
+        $tempRow['operate'] = $operate;
+        $rows[] = $tempRow;
+    }
+    $bulkData['rows'] = $rows;
+    print_r(json_encode($bulkData));
+}
 $db->disconnect();
