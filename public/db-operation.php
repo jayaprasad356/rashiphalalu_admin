@@ -35,6 +35,18 @@ if (isset($_POST['delete_variant'])) {
         echo 0;
     }
 }
+//yearly horoscope variant
+if (isset($_POST['delete_variant'])) {
+    $janma_tab_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM janma_tab_variant WHERE id = $janma_tab_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
 //child birth variant
 if (isset($_POST['delete_variant'])) {
     $yearly_id = $db->escapeString(($_POST['id']));
@@ -63,8 +75,85 @@ if (isset($_POST['delete_variant'])) {
 
 //Grahalu tab variant
 if (isset($_POST['delete_variant'])) {
-    $grahalu_id = $db->escapeString(($_POST['id']));
-    $sql = "DELETE FROM grahalu_tab_variant WHERE id = $grahalu_id";
+    $janma_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM janma_tab_variant WHERE id = $janma_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $rahu_ketu_graham_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM rahu_ketu_graham_tab_variant WHERE id = $rahu_ketu_graham_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $rashulu_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM rashulu_tab_variant WHERE id = $rashulu_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $guru_graham_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM guru_graham_tab_variant WHERE id = $guru_graham_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $shani_graham_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM shani_graham_tab_variant WHERE id = $shani_graham_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $nava_grahalu_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM nava_grahalu_tab_variant WHERE id = $nava_grahalu_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $janma_rashulu_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM janma_rashulu_tab_variant WHERE id = $janma_rashulu_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $rashulu_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM rashulu_tab_variant WHERE id = $rashulu_id";
     $db->sql($sql);
     $result = $db->getResult();
     if ($result) {
@@ -119,6 +208,17 @@ if (isset($_POST['delete_variant'])) {
 if (isset($_POST['delete_variant'])) {
     $subha_muhurtham_id = $db->escapeString(($_POST['id']));
     $sql = "DELETE FROM subha_muhurtham_variant WHERE id = $subha_muhurtham_id";
+    $db->sql($sql);
+    $result = $db->getResult();
+    if ($result) {
+        echo 1;
+    } else {
+        echo 0;
+    }
+}
+if (isset($_POST['delete_variant'])) {
+    $janma_id = $db->escapeString(($_POST['id']));
+    $sql = "DELETE FROM janma_tab_variant WHERE id = $janma_id";
     $db->sql($sql);
     $result = $db->getResult();
     if ($result) {

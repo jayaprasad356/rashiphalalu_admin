@@ -88,16 +88,16 @@ if (isset($_POST['btnAdd'])) {
                     <div class="row">
                                 <div class="form-group">
                                 <div class='col-md-6'>
-                                        <label for="">Nava Grahalu</label> <i class="text-danger asterik">*</i>
-                                        <select id='nava_grahalu' name="nava_grahalu" class='form-control' required>
+                                        <label for="">Nakshatralu</label> <i class="text-danger asterik">*</i>
+                                        <select id='nakshatralu' name="nakshatralu" class='form-control' required>
                                             <option value="">Select</option>
                                                 <?php
-                                                $sql = "SELECT * FROM `nava_grahalu_names`";
+                                                $sql = "SELECT * FROM `nakshatralu_field`";
                                                 $db->sql($sql);
                                                 $result = $db->getResult();
                                                 foreach ($result as $value) {
                                                 ?>
-                                                    <option value='<?= $value['nava_grahalu'] ?>'><?= $value['nava_grahalu'] ?></option>
+                                                    <option value='<?= $value['nakshatralu'] ?>'><?= $value['nakshatralu'] ?></option>
                                             <?php } ?>
                                             </select>
                                     </div>

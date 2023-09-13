@@ -234,7 +234,7 @@ if (isset($_POST['btnCancel'])) { ?>
     $(document).on('click', '.remove_variation', function() {
         if ($(this).data('id') == 'data_delete') {
             if (confirm('Are you sure? Want to delete this row')) {
-                var id = $(this).closest('div.row').find("input[id='grahalu_tab_variant_id']").val();
+                var id = $(this).closest('div.row').find("input[id='rahu_ketu_graham_tab_variant_id']").val();
                 $.ajax({
                     url: 'public/db-operation.php',
                     type: "post",

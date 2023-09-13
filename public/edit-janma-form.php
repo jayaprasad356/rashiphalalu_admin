@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     exit(0);
 }
 	$category_data = array();
-	$sql = "select id,name from guru_graham order by id asc";
+	$sql = "select id,name from janma_tab order by id asc";
 	$db->sql($sql);
 	$category_data = $db->getResult();
 	$sql = "select * from grahalu_submenu";
@@ -23,18 +23,14 @@ if (isset($_GET['id'])) {
 
 if (isset($_POST['btnEdit'])) {
 
-
-	$year = $db->escapeString(($_POST['year']));
-	$rasi = $db->escapeString(($_POST['rasi']));
-
+	$nakshatralu = $db->escapeString(($_POST['nakshatralu']));
+    $title= $db->escapeString($_POST['title']);
+	$description= $db->escapeString($_POST['description']);
 	$error = array();
 
-	
 
-   
-   
-   if (!empty($year) && !empty($rasi)) {
-				$sql_query = "UPDATE guru_graham_tab SET year='$year',rasi='$rasi' WHERE id =$ID";
+   if (!empty($title) && !empty($description)&& !empty($nakshatralu)) {
+				$sql_query = "UPDATE janma_tab SET nakshatralu='$nakshatralu',title='$title',description='$description' WHERE id =$ID";
 				$db->sql($sql_query);
 				$res = $db->getResult();
 				$update_result = $db->getResult();
@@ -47,22 +43,22 @@ if (isset($_POST['btnEdit'])) {
 			// check update result
 			if ($update_result == 1)
 			{
-				for ($i = 0; $i < count($_POST['title']); $i++) {
-					$guru_graham_tab_id = $db->escapeString(($_POST['guru_graham_tab_variant_id'][$i]));
-					$title = $db->escapeString(($_POST['title'][$i]));
-					$description = $db->escapeString(($_POST['description'][$i]));
-					$sql = "UPDATE guru_graham_tab_variant SET title='$title',description='$description' WHERE id =$guru_graham_tab_id";
+				for ($i = 0; $i < count($_POST['title_description']); $i++) {
+					$janma_tab_id = $db->escapeString(($_POST['janma_tab_variant_id'][$i]));
+					$title_description = $db->escapeString(($_POST['title_description'][$i]));
+					$title_description1 = $db->escapeString(($_POST['title_description1'][$i]));
+					$sql = "UPDATE janma_tab_variant SET title_description='$title_description',title_description1='$title_description1' WHERE id =$janma_tab_id";
 					$db->sql($sql);
 
 				}
 				if (
-					isset($_POST['insert_title']) && isset($_POST['insert_description'])
+					isset($_POST['insert_title_description']) && isset($_POST['insert_title_description1'])
 				) {
-					for ($i = 0; $i < count($_POST['insert_title']); $i++) {
-						$title = $db->escapeString(($_POST['insert_title'][$i]));
-						$description = $db->escapeString(($_POST['insert_description'][$i]));
-						if (!empty($title) || !empty($description)) {
-							$sql = "INSERT INTO guru_graham_tab_variant (guru_graham_tab_id,title,description) VALUES('$ID','$title','$description')";
+					for ($i = 0; $i < count($_POST['insert_title_description']); $i++) {
+						$title_description = $db->escapeString(($_POST['insert_title_description'][$i]));
+						$title_description1 = $db->escapeString(($_POST['insert_title_description1'][$i]));
+						if (!empty($title_description) || !empty($title_description1)) {
+							$sql = "INSERT INTO janma_tab_variant (janma_tab_id,title_description,title_description1) VALUES('$ID','$title_description','$title_description1')";
 							$db->sql($sql);
 
 						}
@@ -79,22 +75,22 @@ if (isset($_POST['btnEdit'])) {
 // create array variable to store previous data
 $data = array();
 
-$sql_query = "SELECT * FROM guru_graham_tab WHERE id =" . $ID;
+$sql_query = "SELECT * FROM janma_tab WHERE id =" . $ID;
 $db->sql($sql_query);
 $res = $db->getResult();
 
-$sql_query = "SELECT * FROM guru_graham_tab_variant WHERE guru_graham_tab_id =" . $ID;
+$sql_query = "SELECT * FROM janma_tab_variant WHERE janma_tab_id =" . $ID;
 $db->sql($sql_query);
 $resslot = $db->getResult();
 
 if (isset($_POST['btnCancel'])) { ?>
 	<script>
-		window.location.href = "guru_graham_tab.php";
+		window.location.href = "janma_tab.php";
 	</script>
 <?php } ?>
 <section class="content-header">
 	<h1>
-		Edit Guru Graham <small><a href='guru_graham.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Guru Graham </a></small></h1>
+		Edit Janma Nakshathramulu Vati Swabavamulu<small><a href='janma.php'><i class='fa fa-angle-double-left'></i>&nbsp;&nbsp;&nbsp;Back to Janma Nakshathramulu Vati Swabavamulu </a></small></h1>
 	<small><?php echo isset($error['update_grahalutab']) ? $error['update_grahalutab'] : ''; ?></small>
 	<ol class="breadcrumb">
 		<li><a href="home.php"><i class="fa fa-home"></i> Home</a></li>
@@ -116,41 +112,42 @@ if (isset($_POST['btnCancel'])) { ?>
 				
 				<!-- /.box-header -->
 				<!-- form start -->
-				<form id="edit_daily_horoscope_form" method="post" enctype="multipart/form-data">
+				<form id="edit_janma_form" method="post" enctype="multipart/form-data">
 					<div class="box-body">
 					<div class="row">
                                 <div class="form-group">
                                     <div class='col-md-6'>
-                                    <label for="">Year</label> <i class="text-danger asterik">*</i>
-                                        <select id='year' name="year" class='form-control' required>
-                                            <option value="">Select Year</option>
-                                                <?php
-                                                $sql = "SELECT * FROM `year_count`";
-                                                $db->sql($sql);
-                                                $result = $db->getResult();
-                                                foreach ($result as $value) {
-                                                ?>
-													 <option value='<?= $value['year'] ?>' <?= $value['year']==$res[0]['year'] ? 'selected="selected"' : '';?>><?= $value['year'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class='col-md-6'>
-                                        <label for="">Rasi</label> <i class="text-danger asterik">*</i>
-                                        <select id='rasi' name="rasi" class='form-control' required>
+                                        <label for="">Nakshatralu</label> <i class="text-danger asterik">*</i>
+                                        <select id='nakshatralu' name="nakshatralu" class='form-control' required>
                                             <option value="">Select</option>
                                                 <?php
-                                                $sql = "SELECT * FROM `rasi_names`";
+                                                $sql = "SELECT * FROM `nakshatralu_field`";
                                                 $db->sql($sql);
                                                 $result = $db->getResult();
                                                 foreach ($result as $value) {
                                                 ?>
-													 <option value='<?= $value['rasi'] ?>' <?= $value['rasi']==$res[0]['rasi'] ? 'selected="selected"' : '';?>><?= $value['rasi'] ?></option>
+													 <option value='<?= $value['nakshatralu'] ?>' <?= $value['nakshatralu']==$res[0]['nakshatralu'] ? 'selected="selected"' : '';?>><?= $value['nakshatralu'] ?></option>
                                             <?php } ?>
                                             </select>
                                     </div>
                                 </div>
                             </div>
                             <br>
+                            <br>
+                            <div class="row">
+                                <div class="form-group">
+                                     <div class="col-md-5">
+                                            <label for="exampleInputEmail1">Title</label> <i class="text-danger asterik">*</i><?php echo isset($error['title']) ? $error['title'] : ''; ?>
+											<input type="title" class="form-control" name="title" value="<?php echo $res[0]['title']; ?>">
+                                    </div>
+									<div class="form-group">
+                                     <div class="col-md-5">
+                                            <label for="exampleInputEmail1">Description</label> <i class="text-danger asterik">*</i><?php echo isset($error['description']) ? $error['description'] : ''; ?>
+                                            <textarea type="text" rows="3" class="form-control" name="description"><?php echo $res[0]['description'] ?></textarea>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
 						   <div id="variations">
 							<?php
 							$i=0;
@@ -158,17 +155,17 @@ if (isset($_POST['btnCancel'])) { ?>
 								?>
 								<div id="packate_div">
 									<div class="row">
-									    <input type="hidden" class="form-control" name="guru_graham_tab_variant_id[]" id="guru_graham_tab_variant_id" value='<?= $row['id']; ?>' />
-									    <div class="col-md-4">
+									    <input type="hidden" class="form-control" name="janma_tab_variant_id[]" id="janma_tab_variant_id" value='<?= $row['id']; ?>' />
+									    <div class="col-md-5">
 											<div class="form-group packate_div">
-												<label for="exampleInputEmail1">title</label> <i class="text-danger asterik">*</i>
-												<input type="text" class="form-control" name="title[]" value="<?php echo $row['title'] ?>" />
+												<label for="exampleInputEmail1">Title Description</label> <i class="text-danger asterik">*</i>
+												<input type="text" class="form-control" name="title_description[]" value="<?php echo $row['title_description'] ?>" />
 											</div>
 										</div>
-										<div class="col-md-4">
+										<div class="col-md-5">
 											<div class="form-group packate_div">
-												<label for="exampleInputEmail1">description</label> <i class="text-danger asterik">*</i>
-												<textarea type="text" rows="2" class="form-control" name="description[]"><?php echo $row['description'] ?></textarea>
+												<label for="exampleInputEmail1">Title Description1</label> <i class="text-danger asterik">*</i>
+												<textarea type="text" rows="2" class="form-control" name="title_description1[]"><?php echo $row['title_description1'] ?></textarea>
 											</div>
 										</div>
 
@@ -216,7 +213,7 @@ if (isset($_POST['btnCancel'])) { ?>
             e.preventDefault();
             if (x < max_fields) {
                 x++;
-				$(wrapper).append('<div class="row"><div class="col-md-4"><div class="form-group"><label for="title">title</label>' +'<input type="text" class="form-control" name="insert_title[]" /></div></div>'+'<div class="col-md-4"><div class="form-group"><label for="description">description</label>'+'<textarea type="text" rows="2" class="form-control" name="insert_description[]"></textarea></div></div>'+'<div class="col-md-1" style="display:grid;"><label>Tab</label><a class="remove text-danger" style="cursor:pointer;color:white;"><button class="btn btn-danger">Remove</button></a></div>'+'</div>');
+				$(wrapper).append('<div class="row"><div class="col-md-5"><div class="form-group"><label for="title_description">Title_description</label>' +'<input type="text" class="form-control" name="insert_title_description[]" /></div></div>'+'<div class="col-md-5"><div class="form-group"><label for="title_description1">Title_description1</label>'+'<textarea type="text" rows="2" class="form-control" name="insert_title_description1[]"></textarea></div></div>'+'<div class="col-md-1" style="display:grid;"><label>Tab</label><a class="remove text-danger" style="cursor:pointer;color:white;"><button class="btn btn-danger">Remove</button></a></div>'+'</div>');
             } else {
                 alert('You Reached the limits')
             }
@@ -230,11 +227,12 @@ if (isset($_POST['btnCancel'])) { ?>
         })
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).on('click', '.remove_variation', function() {
         if ($(this).data('id') == 'data_delete') {
             if (confirm('Are you sure? Want to delete this row')) {
-                var id = $(this).closest('div.row').find("input[id='guru_graham_tab_variant_id']").val();
+                var id = $(this).closest('div.row').find("input[id='janma_tab_variant_id']").val();
                 $.ajax({
                     url: 'public/db-operation.php',
                     type: "post",
@@ -253,15 +251,4 @@ if (isset($_POST['btnCancel'])) { ?>
         }
     });
 </script>
-<script>
-     $(document).on('change', '#grahalu_id', function() {
-        $.ajax({
-            url: 'public/db-operation.php',
-            method: 'POST',
-            data: 'grahalu_id=' + $('#grahalu_id').val() + '&find_grahalusubcategory=1',
-            success: function(data) {
-                $('#subcategory_id').html("<option value=''>---Select Subcategory---</option>" + data);
-            }
-        });
-    });
-</script>
+
