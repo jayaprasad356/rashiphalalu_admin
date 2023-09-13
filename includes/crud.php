@@ -28,7 +28,7 @@ class Database
 
     
      //Test
-    // private $db_host = "localhost";  // Change as required
+     //private $db_host = "localhost";  // Change as required
     // private $db_user = "root";  // Change as required
     // private $db_pass = "";  // Change as required
     // private $db_name = "telugu";    // Change as required
