@@ -14,14 +14,14 @@ $db->connect();
 
 
 
-$sql = "SELECT * FROM `app_settings`";
+$sql = "SELECT * FROM `season`";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num>=1){
  
     $response['success'] = true;
-    $response['message'] = "app settings Listed Successfully";
+    $response['message'] = "Date,Year,Season & Week  Listed Successfully";
     $response['data'] = $res;
     print_r(json_encode($response));
 

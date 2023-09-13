@@ -215,7 +215,7 @@ $fn = new custom_functions;
                         <span> Janma Rashulu Vati Swabhavalu</span>
                     </a>
                 </li> <li class="treeview">
-                <a href="panchangam.php">
+                <a href="janma.php">
                         <i class="fa fa-calendar"></i>
                         <span>Janma Nakshathramulu Vati Swabavamulu</span>
                     </a>

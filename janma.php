@@ -23,12 +23,12 @@
 <?php include "header.php";?>
 <html>
 <head>
-<title>Date,Year,Season & Week | - Dashboard</title>
+<title>Janma Nakshathramulu Vati Swabavamulu | - Dashboard</title>
 </head>
 </body>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <?php include('public/date-table.php'); ?>
+        <?php include('public/janma-table.php'); ?>
       </div><!-- /.content-wrapper -->
   </body>
 </html>
