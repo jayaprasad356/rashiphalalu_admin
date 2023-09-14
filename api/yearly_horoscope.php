@@ -43,10 +43,10 @@ if($num>=1){
             $temp['janma_nama_nakshathram_description4'] = $row['janma_nama_nakshathram_description4'];
             $temp['graha_dhashakalamu'] = $row['graha_dhashakalamu'];
  
-            $sql = "SELECT * FROM `yearly_hororscope_variant` WHERE yearly_horoscope_id = '$id'";
+            $sql = "SELECT * FROM `yearly_horoscope_variant` WHERE yearly_horoscope_id = '$id'";
             $db->sql($sql);
             $res = $db->getResult();
-            $temp['yearly_hororscope_variant'] = $res;
+            $temp['yearly_horoscope_variant'] = $res;
             $rows[] = $temp;
         }
         $response['success'] = true;
