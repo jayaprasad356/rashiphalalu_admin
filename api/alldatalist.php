@@ -6,41 +6,41 @@ header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
-
+date_default_timezone_set('Asia/Kolkata');
 
 include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-
-$sql = "SELECT * FROM `guru_graham_tab`";
+$sql = "SELECT * FROM `guru_graham_tab` WHERE month='$month' AND year='$year'";
 $db->sql($sql);
 $res = $db->getResult();
-$rows = array();
-$temp = array();
-foreach ($res as $row) {
-    $temp['id'] = $row['id'];
-    $temp['year'] = $row['year'];
-    $temp['rasi'] = $row['rasi']; 
-    $rows[] = $temp;
+$num = $db->numRows($res);
+if($num>=1){
+        $rows = array();
+        $temp = array();
+        foreach ($res as $row) {
+            $id = $row['id'];
+            $temp['id'] = $row['id'];
+            $temp['year'] = $row['year'];
+            $temp['rasi'] = $row['rasi'];
+ 
+            $sql = "SELECT * FROM `guru_graham_tab_variant` WHERE guru_graham_tab_id = '$id'";
+            $db->sql($sql);
+            $res = $db->getResult();
+            $temp['abdhikam_variant'] = $res;
+            $rows[] = $temp;
+        }
+        $response['success'] = true;
+        $response['message'] = "Guru Graham Listed Successfully";
+        $response['data'] = $rows;
+        print_r(json_encode($response));
 }
-$response['success'] = true;
-$response['message'] = "Guru Graham Listed Successfullty";
-$response['guru_graham_tab_list'] = $rows;
+else{
+    $response['success'] = false;
+    $response['message'] = "Data Not Found";
+    print_r(json_encode($response));
+}
 
-unset($temp);
-$sql = "SELECT * FROM `guru_graham_tab_variant`";
-$db->sql($sql);
-$res = $db->getResult();
-$rows = array();
-$temp = array();
-foreach ($res as $row) {
-    $temp['id'] = $row['id'];
-    $temp['guru_graham_tab_id'] = $row['guru_graham_tab_id'];
-    $temp['title'] = $row['title'];
-    $temp['description'] = $row['description'];
-    $rows[] = $temp;
-}
-$response['guru_graham_tab_list'] = $rows;
-unset($temp);
+
 ?>
