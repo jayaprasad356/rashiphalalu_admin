@@ -12,19 +12,47 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-
-
 $sql = "SELECT * FROM `yearly_horoscope`";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num>=1){
+        $rows = array();
+        $temp = array();
+        foreach ($res as $row) {
+            $id = $row['id'];
+            $temp['id'] = $row['id'];
+            $temp['rasi'] = $row['rasi'];
+            $temp['main_title'] = $row['main_title'];
+            $temp['main_description'] = $row['main_description'];
+            $temp['year'] = $row['year'];
+            $temp['adhayam'] = $row['adhayam'];
+            $temp['vyayam'] = $row['vyayam'];
+            $temp['rajapujyam'] = $row['rajapujyam'];
+            $temp['aavamanam'] = $row['aavamanam'];
+            $temp['title'] = $row['title'];
+            $temp['description'] = $row['description'];
+            $temp['janma_nama_nakshathram'] = $row['janma_nama_nakshathram'];
+            $temp['janma_nama_nakshathram_title1'] = $row['janma_nama_nakshathram_title1'];
+            $temp['janma_nama_nakshathram_title2'] = $row['janma_nama_nakshathram_title2'];
+            $temp['janma_nama_nakshathram_title3'] = $row['janma_nama_nakshathram_title3'];
+            $temp['janma_nama_nakshathram_title4'] = $row['janma_nama_nakshathram_title4'];
+            $temp['janma_nama_nakshathram_description1'] = $row['janma_nama_nakshathram_description1'];
+            $temp['janma_nama_nakshathram_description2'] = $row['janma_nama_nakshathram_description2'];
+            $temp['janma_nama_nakshathram_description3'] = $row['janma_nama_nakshathram_description3'];
+            $temp['janma_nama_nakshathram_description4'] = $row['janma_nama_nakshathram_description4'];
+            $temp['graha_dhashakalamu'] = $row['graha_dhashakalamu'];
  
-    $response['success'] = true;
-    $response['message'] = "Yearly Horoscope Listed Successfully";
-    $response['data'] = $res;
-    print_r(json_encode($response));
-
+            $sql = "SELECT * FROM `yearly_hororscope_variant` WHERE yearly_horoscope_id = '$id'";
+            $db->sql($sql);
+            $res = $db->getResult();
+            $temp['yearly_hororscope_variant'] = $res;
+            $rows[] = $temp;
+        }
+        $response['success'] = true;
+        $response['message'] = "Yearly Horoscope Listed Successfully";
+        $response['data'] = $rows;
+        print_r(json_encode($response));
 }
 else{
     $response['success'] = false;
