@@ -14,14 +14,14 @@ $db->connect();
 
 
 
-$sql = "SELECT * FROM `yearly_horoscope`";
+$sql = "SELECT * FROM `yearly_horoscope_variant`";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num>=1){
  
     $response['success'] = true;
-    $response['message'] = "Yearly Horoscope Listed Successfully";
+    $response['message'] = "Yearly Horoscope Variant Listed Successfully";
     $response['data'] = $res;
     print_r(json_encode($response));
 
