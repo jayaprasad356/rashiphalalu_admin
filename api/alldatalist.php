@@ -12,7 +12,7 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-$sql = "SELECT * FROM `guru_graham_tab` WHERE month='$month' AND year='$year'";
+$sql = "SELECT * FROM `guru_graham_tab`'";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
@@ -28,7 +28,7 @@ if($num>=1){
             $sql = "SELECT * FROM `guru_graham_tab_variant` WHERE guru_graham_tab_id = '$id'";
             $db->sql($sql);
             $res = $db->getResult();
-            $temp['abdhikam_variant'] = $res;
+            $temp['guru_graham_tab_variant'] = $res;
             $rows[] = $temp;
         }
         $response['success'] = true;
