@@ -17,5 +17,5 @@ $db->connect();
 	$sql_query = "DELETE  FROM guru_graham_tab_variant WHERE guru_graham_tab_id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:janma_rashulu.php");
+	header("location:guru_graham.php");
 ?>
