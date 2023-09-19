@@ -12,10 +12,10 @@ $db->connect();
 	}
 	$data = array();
 
-	$sql_query = "DELETE  FROM nava_graham_tab WHERE id =" . $ID;
+	$sql_query = "DELETE  FROM nava_grahalu_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
-	$sql_query = "DELETE  FROM nava_graham_tab_variant WHERE nava_graham_tab_id =" . $ID;
+	$sql_query = "DELETE  FROM nava_grahalu_tab_variant WHERE nava_grahalu_tab_id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:nava_graham.php");
+	header("location:nava_grahalu.php");
 ?>
