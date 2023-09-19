@@ -12,30 +12,24 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
+
+
 $sql = "SELECT * FROM `rahu_ketu_graham_tab`";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num>=1){
-    $rows = array();
-    $temp = array();
-    foreach ($res as $row) {
-        $id = $row['id'];
-        $temp['id'] = $row['id'];
-        $temp['rasi'] = $row['rasi'];
-        $temp['year'] = $row['year'];
-
-        $sql = "SELECT * FROM `rahu_ketu_graham_tab_variant` WHERE rahu_ketu_graham_tab_id = '$id'";
-        $db->sql($sql);
-        $res = $db->getResult();
-        $temp['rahu_ketu_graham_tab_variant'] = $res;
-        $rows[] = $temp;
-    }
+ 
     $response['success'] = true;
-    $response['message'] = "Rahu Ketu Graham List Successfullty";
-    $response['data'] = $rows;
+    $response['message'] = "Rahu Ketu Graham Listed Successfully";
+    $response['data'] = $res;
     print_r(json_encode($response));
 
+}
+else{
+    $response['success'] = false;
+    $response['message'] = "Data Not Found";
+    print_r(json_encode($response));
 }
 
 

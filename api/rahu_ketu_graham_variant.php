@@ -14,14 +14,14 @@ $db->connect();
 
 
 
-$sql = "SELECT * FROM `guru_graham_tab`";
+$sql = "SELECT * FROM `rahu_ketu_graham_tab_variant`";
 $db->sql($sql);
 $res = $db->getResult();
 $num = $db->numRows($res);
 if($num>=1){
  
     $response['success'] = true;
-    $response['message'] = "Guru Graham Listed Successfully";
+    $response['message'] = "Rahu Ketu Graham Variant Listed Successfully";
     $response['data'] = $res;
     print_r(json_encode($response));
 
