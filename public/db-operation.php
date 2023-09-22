@@ -72,7 +72,6 @@ if (isset($_POST['delete_variant'])) {
         echo 0;
     }
 }
-
 //Grahalu tab variant
 if (isset($_POST['delete_variant'])) {
     $janma_id = $db->escapeString(($_POST['id']));
