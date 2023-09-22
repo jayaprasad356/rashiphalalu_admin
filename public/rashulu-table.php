@@ -49,7 +49,16 @@
     </section>
     <style>
     /* Truncate the description to show only a single line */
-    .box-body table td:nth-child(3,5) {
+    .box-body table td:nth-child(3) {
+        max-width: 200px; /* Adjust the width to control the truncation */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+</style>
+<style>
+    /* Truncate the description to show only a single line */
+    .box-body table td:nth-child(5) {
         max-width: 200px; /* Adjust the width to control the truncation */
         white-space: nowrap;
         overflow: hidden;
