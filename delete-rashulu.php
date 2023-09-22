@@ -15,5 +15,5 @@ $db->connect();
 	$sql_query = "DELETE  FROM rashulu_tab WHERE id =" . $ID;
 	$db->sql($sql_query);
 	$res = $db->getResult();
-	header("location:monthly.php");
+	header("location:rashulu.php");
 ?>
