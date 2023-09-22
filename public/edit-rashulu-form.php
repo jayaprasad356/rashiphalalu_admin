@@ -125,9 +125,9 @@ if (isset($_POST['btnCancel'])) { ?>
 										<input type="text" class="form-control" name="title" value="<?php echo $res[0]['title']; ?>">
 									 </div>
 									 <div class="col-md-4">
-										<label for="exampleInputEmail1">Description</label><i class="text-danger asterik">*</i>
-										<textarea  type="text" rows="2" class="form-control" name="description" value="<?php echo $res[0]['description']; ?>"></textarea>
-									 </div>
+                                       <label for="exampleInputEmail1">Description</label><i class="text-danger asterisk">*</i>
+                                      <textarea rows="2" class="form-control" name="description"><?php echo $res[0]['description']; ?></textarea>
+                                     </div>
 								</div>
 						   </div>
 						   <br>
