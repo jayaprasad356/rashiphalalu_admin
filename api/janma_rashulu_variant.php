@@ -12,25 +12,22 @@ include_once('../includes/crud.php');
 $db = new Database();
 $db->connect();
 
-
-
-$sql = "SELECT * FROM `janma_rashulu_tab_variant`";
+$sql = "SELECT jr.*, j.rasi AS rasi FROM janma_rashulu_tab_variant jr
+        LEFT JOIN janma_rashulu_tab j ON jr.janma_rashulu_tab_id = j.id";
 $db->sql($sql);
 $res = $db->getResult();
-$num = $db->numRows($res);
-if($num>=1){
- 
+
+$response = array(); 
+
+if (!empty($res)) {
     $response['success'] = true;
     $response['message'] = "Janma Rashulu Vati Swabhavalu Variant Listed Successfully";
     $response['data'] = $res;
-    print_r(json_encode($response));
-
-}
-else{
+} else {
     $response['success'] = false;
     $response['message'] = "Data Not Found";
-    print_r(json_encode($response));
+    $response['data'] = array(); 
 }
 
-
+print_r(json_encode($response));
 ?>
