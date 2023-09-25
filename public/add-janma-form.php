@@ -55,7 +55,7 @@ if (isset($_POST['btnAdd'])) {
                     }
                     
                     $error['add_grahalu_tab'] = "<section class='content-header'>
-                                                    <span class='label label-success'> Added Successfully</span> </section>";
+                                                    <span class='label label-success'>Janma Nakshathramulu Vati Swabavamulu Added Successfully</span> </section>";
                 } else {
                     $error['add_grahalu_tab'] = " <span class='label label-danger'>Failed</span>";
                 }

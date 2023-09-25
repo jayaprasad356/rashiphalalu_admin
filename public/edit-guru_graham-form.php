@@ -68,7 +68,7 @@ if (isset($_POST['btnEdit'])) {
 						}
 					}
 				}
-					$error['update_grahalutab'] = " <section class='content-header'><span class='label label-success'>Grahalu Tab updated Successfully</span></section>";
+					$error['update_grahalutab'] = " <section class='content-header'><span class='label label-success'>Guru Graham updated Successfully</span></section>";
 			} else {
 				$error['update_grahalutab'] = " <span class='label label-danger'>Failed to update</span>";
 			}
