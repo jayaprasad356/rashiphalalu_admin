@@ -220,6 +220,12 @@ $fn = new custom_functions;
                         <span>Janma Nakshathramulu Vati Swabavamulu</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="notifications.php">
+                        <i class="fa fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
             </section>
             <!-- /.sidebar -->
         </aside>
