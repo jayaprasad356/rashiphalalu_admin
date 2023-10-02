@@ -282,7 +282,7 @@ class functions
         return ($num_rows > 0) ? true : false;
     }
     //getting all tokens to send push to all devices
-    public function getAllTokens($table = 'users')
+    public function getAllTokens($table = 'device_token')
     {
         $sql = "SELECT `fcm_id` FROM `$table`";
         $this->db->sql($sql);

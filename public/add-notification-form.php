@@ -3,10 +3,13 @@ include_once('includes/functions.php');
 $function = new functions;
 include_once('includes/custom-functions.php');
 $fn = new custom_functions;
+$sql = "SELECT id, name FROM categories ORDER BY id ASC";
+$db->sql($sql);
+$res = $db->getResult();
 
 ?>
 <?php
-if (isset($_POST['btnAdd'])) {
+if (isset($_POST['btnd'])) {
 
         $title = $db->escapeString(($_POST['title']));
         $description = $db->escapeString($_POST['description']);
@@ -22,8 +25,9 @@ if (isset($_POST['btnAdd'])) {
        
        if (!empty($title) && !empty($description)) 
        {
+        $datetime = date('Y-m-d H:i:s');
            
-            $sql_query = "INSERT INTO notifications (title,description)VALUES('$title','$description')";
+            $sql_query = "INSERT INTO notifications (title,description,datetime)VALUES('$title','$description','$datetime')";
             $db->sql($sql_query);
             $result = $db->getResult();
             if (!empty($result)) {
@@ -62,7 +66,7 @@ if (isset($_POST['btnAdd'])) {
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form id='notification_form' method="post"  enctype="multipart/form-data">
+                <form id='notification_form' method="post" action="send-multiple-push.php" enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="row">
                             <div class="form-group">
@@ -81,16 +85,18 @@ if (isset($_POST['btnAdd'])) {
                                 </div>
                             </div>
                         </div>
-                      
+                        <br>
+                    
                     </div>
                     <!-- /.box-body -->
 
                     <div class="box-footer">
-                    <button type="submit" class="btn btn-primary" name="btnAdd">Submit</button>
+                        <button type="submit" class="btn btn-primary" name="btnAdd">Submit</button>
                         <input type="reset" onClick="refreshPage()" class="btn-warning btn" value="Clear" />
                     </div>
 
                 </form>
+                <div id="result"></div>
 
             </div><!-- /.box -->
         </div>
@@ -98,6 +104,43 @@ if (isset($_POST['btnAdd'])) {
 </section>
 
 <div class="separator"> </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+<script>
+    $('#notification_form').on('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(result) {
 
+                    $('#result').html(result.message);
+                    $('#result').show().delay(6000).fadeOut();
+                    $('#notification_form').each(function() {
+                        this.reset();
+                    });
+                    
+                }
+            });
+
+        });
+    $('#btnClear').on('click', function() {
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].setData('');
+        }
+    });
+</script>
+
+<!--code for page clear-->
+<script>
+    function refreshPage(){
+    window.location.reload();
+} 
+</script>
 
 <?php $db->disconnect(); ?>
