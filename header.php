@@ -226,6 +226,12 @@ $fn = new custom_functions;
                         <span>Notifications</span>
                     </a>
                 </li>
+                <li class="treeview">
+                    <a href="feedback.php">
+                        <i class="fa fa-bell"></i>
+                        <span>Feedback</span>
+                    </a>
+                </li>
             </section>
             <!-- /.sidebar -->
         </aside>
